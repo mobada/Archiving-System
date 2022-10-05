@@ -211,7 +211,7 @@ function arch_doc_type(p_doc_type_id varchar2,p_pk_id varchar2,p_operation varch
 
 END ARCH_DATA_PKG;
 /
-create or replace PACKAGE BODY           ARCHDATA.ARCH_DATA_PKG AS
+create or replace PACKAGE BODY           ARCH_DATA_PKG AS
 
  /* Middle code to handle data archiving logic and process flow
    Mohammed Obada 06-2022*/ 
@@ -700,7 +700,11 @@ end if;
 open row_exist(nvl(d.table_name,d.row_perfix),d.owner,nvl(d.condition,'NON'));
 fetch row_exist into l_row_exist;
 close row_exist;
---execute immediate l_sql into l_json ;
+
+if p_operation = 'DELETING' then
+execute immediate l_sql into l_json ;
+end if;
+
 
 if nvl(l_row_exist,0) = 0 then
 update DWH_ARCH_DATA
@@ -709,7 +713,7 @@ where  /*LOCAL_TRANSACTION_ID != l_local_trans_id
 and*/ nvl(condition,'NON') = nvl(d.condition,'NON')
 and table_pk_id = l_pk_id_value
 and owner = d.owner
---and table_name = nvl(d.table_name,d.row_perfix);
+and table_name = nvl(d.table_name,d.row_perfix)
 and doc_type = p_doc_type_id;
 
 insert into DWH_ARCH_DATA  
@@ -786,7 +790,7 @@ d.condition,
 l_action,
 l_action_id,
 l_curr_sql,
-l_err_code||' -- '||l_err_msg,
+l_err_code||' -- '||l_err_msg, 
 'ERROR',
 p_operation,
 l_local_trans_id
@@ -797,7 +801,7 @@ end loop;
 
 delete DWH_ARCH_DATA
 where LOCAL_TRANSACTION_ID = DBMS_TRANSACTION.LOCAL_TRANSACTION_ID
-and row_status = 'HISTORY';
+and row_status = 'HISTORY' and operation!= 'DELETING'; 
 
 return l_action_id;
 
