@@ -14,6 +14,8 @@ grant select on dba_scheduler_jobs to archdata;
 /
 grant create any trigger to archdata;
 /
+grant drop any trigger to archdata;
+/
 grant create any job to archdata;
 /
 --------------------------------------------------------
