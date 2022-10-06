@@ -28,7 +28,7 @@ prompt APPLICATION 1001 - Archiving - Mobada
 -- Application Export:
 --   Application:     1001
 --   Name:            Archiving - Mobada
---   Date and Time:   17:01 Tuesday October 4, 2022
+--   Date and Time:   07:24 Thursday October 6, 2022
 --   Exported By:     ARCH
 --   Flashback:       0
 --   Export Type:     Application Export
@@ -99,7 +99,7 @@ wwv_flow_imp.create_flow(
 ,p_flow_image_prefix => nvl(wwv_flow_application_install.get_image_prefix,'')
 ,p_authentication=>'PLUGIN'
 ,p_authentication_id=>wwv_flow_imp.id(6772592151271262)
-,p_application_tab_set=>1
+,p_application_tab_set=>0
 ,p_logo_type=>'T'
 ,p_logo_text=>'Archiving - Mobada'
 ,p_proxy_server=>nvl(wwv_flow_application_install.get_proxy,'')
@@ -117,7 +117,7 @@ wwv_flow_imp.create_flow(
 ,p_substitution_string_01=>'APP_NAME'
 ,p_substitution_value_01=>'Archiving - Mobada'
 ,p_last_updated_by=>'ARCH'
-,p_last_upd_yyyymmddhh24miss=>'20221004170121'
+,p_last_upd_yyyymmddhh24miss=>'20221005153727'
 ,p_file_prefix => nvl(wwv_flow_application_install.get_static_app_file_prefix,'')
 ,p_files_version=>4
 ,p_ui_type_name => null
@@ -15740,7 +15740,7 @@ wwv_flow_imp_page.create_page(
 ,p_protection_level=>'C'
 ,p_page_component_map=>'21'
 ,p_last_updated_by=>'ARCH'
-,p_last_upd_yyyymmddhh24miss=>'20221003055420'
+,p_last_upd_yyyymmddhh24miss=>'20221005153727'
 );
 wwv_flow_imp_page.create_page_plug(
  p_id=>wwv_flow_imp.id(10359141929434748)
@@ -15765,7 +15765,7 @@ wwv_flow_imp_page.create_page_plug(
 ,p_plug_source=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'select a.*,',
 'to_char(action_date,''DD/MM/YYYY HH:MI:SS'') log_date',
-'from DWH_ARCH_DATA a'))
+'from runerp_dwh.DWH_ARCH_DATA a'))
 ,p_plug_source_type=>'NATIVE_IG'
 ,p_plug_query_options=>'DERIVED_REPORT_COLUMNS'
 ,p_prn_page_header=>'Archive Search'
